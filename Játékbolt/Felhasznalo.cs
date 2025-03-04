@@ -10,32 +10,34 @@ internal class Felhasznalo
     {
         Nev = nev;
         Egyenleg = egyenleg;
+        Konyvtar = new List<Jatek>();
     }
 
     public bool Vasarlas(Jatek jatek)
     {
         foreach (var j in Konyvtar)
         {
-            if (j == jatek  | Egyenleg < jatek.Ar)
+            if (j == jatek || Egyenleg < jatek.Ar)
             {
                 return false;
             }
         }
+        Konyvtar.Add(jatek);
         return true;
     }
 
     public void KonyvtarMegtekintes()
     {
-        Console.WriteLine($"{Nev} játékai:");
+        Console.WriteLine($"A megvásárolt játékok:");
         foreach (var j in Konyvtar)
         {
-            Console.Write($"{j} ");
+            Console.WriteLine($"- {j.Cim}");
         }
     }
 
     public void Feltoltes(int osszeg)
     {
         Egyenleg += osszeg;
-        Console.WriteLine($"A feltöltés megtörtént, {Egyenleg} összeg van az egyenlegeden.");
+        Console.WriteLine($"A feltöltés megtörtént: +{osszeg} Ft");
     }
 }
